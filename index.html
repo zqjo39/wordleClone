@@ -63,9 +63,9 @@
     </div>
 </body>
 <script>
-    const answer = wordBank[randomNum];
     const wordBank = ["ARIEL", "FOUND", "NEXUS", "INDEX", "MATCH", "HEAVY"]; // todo make this random word
-    const randomNum = Math.floor(Math.random() * wordBank.length);
+    let randomNum = Math.floor(Math.random() * wordBank.length);
+    const answer = wordBank[randomNum];
     const board = document.getElementById('board');
     const textBox = document.querySelector('input');
     const submitButton = document.querySelector('button');
@@ -78,15 +78,15 @@
         if (guess.length !== 5) {
             return // don't accept words that aren't five letters long
         }
-        // todo clear the textbox once you hit submit
+        // clears the textbox once you hit submit
         textBox.value = "";
 
         // render guess to the board
-        writeGuess(guess) // todo create this function
+        writeGuess(guess);
 
         currentGuessNumber++;
 
-        // todo check for win
+        // check for win
         if (guess.toUpperCase() === answer.toUpperCase()) {
             gameOverMessage.textContent = 'You win! :D';
             submitButton.remove();
@@ -94,7 +94,7 @@
             return
         }
 
-        // todo check for loss
+        // check for loss
         if (currentGuessNumber >= board.children.length) {
             gameOverMessage.textContent = `You lost :( The word was ${answer}.`;
             submitButton.remove();
@@ -105,7 +105,7 @@
 
     function writeGuess(guess) {
         //build our match array sp we can easily see what matches
-        let matchArray = buildMatchArray(guess) // todo create function that turns words into arrays
+        let matchArray = buildMatchArray(guess) // function that turns words into arrays
 
         // identify the current tr tag
         let currentGuessRow = board.children[currentGuessNumber];
@@ -113,7 +113,7 @@
         let columns = currentGuessRow.children;
 
         for (let i = 0; i < matchArray.length; i++) {
-            // todo check each letter for green/yellow/grey backgrounds
+            // check each letter for green/yellow/grey backgrounds
             let column = columns[i];
             column.textContent = guess[i].toUpperCase();
 
@@ -135,7 +135,7 @@
             let letter = answer[i].toUpperCase();
             answerAsArray.push(letter);
         }
-        // todo find exact matches first
+        // find exact matches first
         for (let i = 0; i < guess.length; i++) {
             let letter = guess[i];
             if (letter === answer[i]) {
@@ -143,7 +143,7 @@
                 matchArray[i] = 2; // indicate we found a match
             }
         }
-        // todo find in-word matches and misses
+        // find in-word matches and misses
         for (let i = 0; i < guess.length; i++) {
             let letter = guess[i];
             let index = answerAsArray.indexOf(letter);
@@ -160,6 +160,5 @@
         }
         return matchArray
     }
-    //start again at slide 29
 </script>
 </html>
