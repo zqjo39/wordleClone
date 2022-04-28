@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guess The Word(le)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <table>
+                <tbody id="board">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="input-container">
+                <input type="text" maxlength="5" minlength="5">
+                <button>Enter!</button>
+            </div>
+            <p id="game-over"></p>
+        </div>
+    </div>
+</body>
+<script>
+    const answer = "ARIEL"; // todo make this random word
+    const board = document.getElementById('board');
+    const textBox = document.querySelector('input');
+    const submitButton = document.querySelector('button');
+    const gameOverMessage = document.getElementById('game-over');
+
+    let currentGuessNumber = 0;
+
+    submitButton.addEventListener('click', function(e) {
+        let guess = textBox.value;
+        if (guess.length !== 5) {
+            return // don't accept words that aren't five letters long
+        }
+        // todo clear the textbox once you hit submit
+
+        // render guess to the board
+        writeGuess(guess) // todo create this function
+
+        currentGuessNumber++;
+
+        // todo check for win
+        if (guess.toUpperCase() === answer.toUpperCase()) {
+            gameOverMessage.textContent = 'You win! :D';
+            submitButton.remove();
+            textBox.remove();
+            return
+        }
+
+        // todo check for loss
+        if (currentGuessNumber >= board.children.length) {
+            gameOverMessage = `You lost :( The word was ${answer}.`;
+            submitButton.remove();
+            textBox.remove();
+            return
+        }
+    })
+
+    function writeGuess(guess) {
+        //build our match array sp we can easily see what matches
+        let matchArray = buildMatchArray(guess) // todo create function that turns words into arrays
+
+        // identify the current tr tag
+        let currentGuessRow = board.children[currentGuessNumber];
+        // identify the columns for each letter in that row
+        let columns = currentGuessRow.children;
+
+        for (let i = 0; i < matchArray.length; i++) {
+            // todo check each letter for green/yellow/grey backgrounds
+            let column = columns[i];
+            column.textContent = guess[i].toUpperCase();
+
+            if (matchArray[i] === 2) { // perfect match
+                column.classList.add('correct');
+            } else if (matchArray[i] === 1) { // in word, wrong spot
+                column.classList.add('in-word');
+            } else { // no match
+                column.classList.add('incorrect');
+            }
+        }
+    }
+
+    function buildMatchArray(guess) {
+        guess = guess.toUpperCase();
+        let answerAsArray = [];
+        let matchArray = [0, 0, 0, 0, 0]; // assume no match to start
+    }
+    //start again at slide 25
+</script>
+</html>
