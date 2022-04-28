@@ -63,7 +63,9 @@
     </div>
 </body>
 <script>
-    const answer = ["ARIEL", "FOUND", "NEXUS", "INDEX", "MATCH", "HEAVY"]; // todo make this random word
+    const answer = wordBank[randomNum];
+    const wordBank = ["ARIEL", "FOUND", "NEXUS", "INDEX", "MATCH", "HEAVY"]; // todo make this random word
+    const randomNum = Math.floor(Math.random() * wordBank.length);
     const board = document.getElementById('board');
     const textBox = document.querySelector('input');
     const submitButton = document.querySelector('button');
