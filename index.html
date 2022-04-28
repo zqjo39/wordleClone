@@ -70,6 +70,7 @@
     const textBox = document.querySelector('input');
     const submitButton = document.querySelector('button');
     const gameOverMessage = document.getElementById('game-over');
+    const content = document.querySelector('.content')
 
     let currentGuessNumber = 0;
 
@@ -89,6 +90,12 @@
         // check for win
         if (guess.toUpperCase() === answer.toUpperCase()) {
             gameOverMessage.textContent = 'You win! :D';
+            const reset = document.createElement('button');
+            reset.innerHTML = "RESET"
+            content.appendChild(reset);
+            reset.addEventListener('click', function(e) {
+                location.reload();
+            })
             submitButton.remove();
             textBox.remove();
             return
@@ -97,6 +104,12 @@
         // check for loss
         if (currentGuessNumber >= board.children.length) {
             gameOverMessage.textContent = `You lost :( The word was ${answer}.`;
+            const reset = document.createElement('button');
+            reset.innerHTML = "RESET"
+            content.appendChild(reset);
+            reset.addEventListener('click', function(e) {
+                location.reload();
+            })
             submitButton.remove();
             textBox.remove();
             return
